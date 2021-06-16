@@ -23,8 +23,8 @@ axios(url)
 		const $ = cheerio.load(html);
 		const product = $('.product__details');
 		//console.log(product);  // git product details
-		const csrfToken = $('.csrftoken');
-		//console.log(csrfToken.val()); // git toke
+		const csrf_Token = $('.csrf_Token');
+		//console.log(csrf_Token.val()); // git toke
 
 		const productInfo = [];
 
@@ -49,7 +49,7 @@ axios(url)
 // ** Post data to cart **
 
 fetch('https://www.shopdisney.co.uk/on/demandware.store/Sites-disneyuk-Site/en_GB/Cart-AddProduct', {
-	body: 'format=ajax&Quantity=1&pid=428411449216&csrf_token=${csrfToken}',
+	body: 'format=ajax&Quantity=1&pid=428411449216&csrf_token=${csrf_Token}',
 	method: 'POST'
 })
 	.then((res) => {
