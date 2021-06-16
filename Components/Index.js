@@ -5,6 +5,7 @@ const fetch = require('node-fetch');
 let regExpression = /(\t|\n)/g;
 let url = 'https://www.shopdisney.co.uk/disney-store-disney-princess-costume-collection-for-kids-2841047080168M.html';
 
+// ** git data from url **
 const gitAllData = async () => {
 	try {
 		const urlResponse = await axios.get(url).then((res) => {
@@ -16,34 +17,34 @@ const gitAllData = async () => {
 };
 gitAllData();
 
-axios(url).then((response) => {
-	const html = response.data;
-	const $ = cheerio.load(html);
-	const product = $('.product__details');
-	//console.log(product);  // git product details
-	const csrfToken = $('.csrftoken');
-	//console.log(csrfToken.val());
-	// git toke
+axios(url)
+	.then((response) => {
+		const html = response.data;
+		const $ = cheerio.load(html);
+		const product = $('.product__details');
+		//console.log(product);  // git product details
+		const csrfToken = $('.csrftoken');
+		//console.log(csrfToken.val()); // git toke
 
-	const productInfo = [];
-});
-// 	product.each(function() {
-// 		const product_Name = $(this).find('.product__name').text();
-// 		const old_price = $(this).find('.price__regular').text();
-// 		const current_price = $(this).find('.price__current').text();
-// 		const discount = $(this).find('.price__discount').text();
+		const productInfo = [];
 
-// 		productInfo.push({
-// 			name: product_Name,
-// 			old_price: old_price.replace(regExpression, ''),
-// 			current_price: current_price.replace(regExpression, ''),
-// 			Discount: discount.replace(regExpression, '')
-// 		});
-// 	});
+		product.each(function() {
+			const product_Name = $(this).find('.product__name').text();
+			const old_price = $(this).find('.price__regular').text();
+			const current_price = $(this).find('.price__current').text();
+			const discount = $(this).find('.price__discount').text();
 
-// 	console.log(productInfo);
-// })
-// .catch(console.error);
+			productInfo.push({
+				name: product_Name,
+				old_price: old_price.replace(regExpression, ''),
+				current_price: current_price.replace(regExpression, ''),
+				Discount: discount.replace(regExpression, '')
+			});
+		});
+
+		console.log(productInfo);
+	})
+	.catch(console.error);
 
 // ** Post data to cart **
 
