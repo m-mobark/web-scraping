@@ -23,25 +23,30 @@ axios(url)
 		const $ = cheerio.load(html);
 		const product = $('.product__details');
 		//console.log(product);  // git product details
-		const csrf_Token = $('.csrf_Token');
-		//console.log(csrf_Token.val()); // git toke
+		let csrf_Token = $('.csrftoken').val();
 
 		const productInfo = [];
 
 		product.each(function() {
 			const product_Name = $(this).find('.product__name').text();
+			const Quantity = $(this).find('.productqty__value').val();
+			const size = $(this).find('.variation__size').text();
 			const old_price = $(this).find('.price__regular').text();
 			const current_price = $(this).find('.price__current').text();
 			const discount = $(this).find('.price__discount').text();
 
 			productInfo.push({
 				name: product_Name,
+				Quantity: Quantity,
+				Size: size.replace(regExpression, ' '),
 				old_price: old_price.replace(regExpression, ''),
 				current_price: current_price.replace(regExpression, ''),
 				Discount: discount.replace(regExpression, '')
 			});
 		});
-
+		console.log('               ****************     Git token   **************       ');
+		console.log('Token:', csrf_Token);
+		console.log('               ****************  product details  **************       ');
 		console.log(productInfo);
 	})
 	.catch(console.error);
@@ -53,7 +58,12 @@ fetch('https://www.shopdisney.co.uk/on/demandware.store/Sites-disneyuk-Site/en_G
 	method: 'POST'
 })
 	.then((res) => {
-		console.log('result', res);
+		console.log('               ****************  post requst  **************       ');
+		// console.log('result', res);
+		console.log(`post_url: ${res.url}`);
+		console.log(`status_Code: ${res.status}`);
+		console.log(`status_Text: ${res.statusText}`);
+		console.log(`Headers: ${res.headers}`);
 	})
 	.catch((err) => {
 		console.log('error', err);
