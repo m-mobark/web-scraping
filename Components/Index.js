@@ -58,7 +58,7 @@ fetch('https://www.shopdisney.co.uk/on/demandware.store/Sites-disneyuk-Site/en_G
 	method: 'POST'
 })
 	.then((res) => {
-		console.log('               ****************  post requst  **************       ');
+		console.log('               ****************  post request  **************       ');
 		// console.log('result', res);
 		console.log(`post_url: ${res.url}`);
 		console.log(`status_Code: ${res.status}`);
